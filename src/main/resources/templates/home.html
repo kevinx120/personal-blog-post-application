@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="eng"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"> <!--referencing the thyme leaf spring boot library which is a markup helper library for use of spring boot projects as well as the helper spring security extras helper method using sec-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Blog :: Home Page</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="container">
+        <h1 class="kevin">Kevin's Blog Post</h1>
+        <hr />
+        <h2>New Users Here To Add New Post</h2>
+        <ul>
+            <li><a th:href="@{/posts/new}">New Post</a></li>
+        </ul>
+        <div class="post-container">
+            <div class="post" th:each="post : ${posts}"> <!--passing through the model to the view template were passing the lst of posts as a post lists and we can reference are post list using thyme leaf and decalring post in th:each="post" as the variable that holds the current object where working at that time-->
+                <h2><a th:href="@{'/posts/' + ${post.id}}"
+                       th:text="${post.title}">title</a>  <!-- this is suppose to be one line up but gives error if i do // within the h2 title element were creating a new link with thyme leaf helpers and then using thyme leaf to calcualte href through each iteration it will take the @ and whatever is in the squigly it will try to construct and put together a string of the url on redering on the page-->
+                        <!--and then display the text of post title  and using th ignore anything inside the element but good practice to just pout the text of what your doing such as title in this example-->
+                </h2>
+                <h5 th:text="'Written by ' +${post.account.firstName}">Account First Name</h5>
+                <h5 th:text="'Published on' + ${post.createdAt}">Created At</h5> <!--Created At</h5> next  declaring an h5 published on text and using the post created at date-->
+                <h5 th:text="'Last Updated on' + ${post.updatedAt}">Updated At</h5>
+                <p th:text="${post.body}">body text</p> <!--and then finally the post body of the content itself-->
+                <br />
+            </div>
+        </div>
+        <hr />
+        <ul sec:authorize="!isAuthenticated()"> <!--helper function that we have to make reference in this view that call is authenticated so if its not we havent done anything-->
+            <li><a th:href="@{/register}">Register Here</a></li>
+            <li><a th:href="@{/login}">Login Here</a></li>
+        </ul>
+        <div sec:authorize="isAuthenticated()"> <!--has to do with logout button-->
+            <form action="#"
+                  th:action="@{/logout}"
+                  method="POST">
+                <div>
+                    <label>Hi, <span sec:authentication="name">Username</span></label>
+                </div>
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
+<!-- Use inspect to see how thyme leaf works with making the url with href-->

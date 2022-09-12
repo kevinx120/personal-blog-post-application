@@ -1,0 +1,34 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Blog :: Update Post</title>
+</head>
+<body>
+<div class="container">
+    <a th:href="@{/}">Home</a>
+    <form action="#"
+          th:action="@{'/posts/{id}'(id=${post.id})}"
+          th:object="${post}"
+          method="POST">
+        <input type="hidden" th:field="*{account}" />
+        <input type="hidden" th:field="*{createdAt}" />
+        <!--weve updated the action to put together when this form is rendered its gonna take the /posts/{id} and for the id field is gonna take the parameter of the given post id that were passing to this template-->
+        <h2>Update Post</h2>
+        <div>
+            <label for="new-post-title">Title</label>
+            <input id="new-post-title" type="text" th:field="*{title}" placeholder="Title"/>
+        </div>
+        <div>
+            <label for="new-post-body">Body</label>
+            <textarea id="new-post-body" th:field="*{body}"></textarea>
+        </div>
+        <button type="submit">Publish Post</button>
+    </form>
+</div>
+
+</body>
+</html>

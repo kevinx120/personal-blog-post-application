@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blog :: Post</title>
+</head>
+<body>
+<div class="container">
+    <a th:href="@{'/'}">Home</a> <!--i think this has to do going back to your beginning starter file as your home page as a link-->
+    <div class="post">  <!--individual post to display in the template-->
+        <h2 th:text="${post.title}">Title</h2> <!--the attribute in this case i think would be title and can be done from  the post controller to get stringify when it gets sent to the view-->
+        <h5 th:text="'Written by ' +${post.account.firstName}">Account First Name</h5> <!--This posts the name of the user i think when now you go to the other page-->
+        <h5 th:text="'Created at ' + ${post.createdAt}">Created At</h5> <!--when something was created at-->
+        <h5 th:text="'Last Updated on' + ${post.updatedAt}">Updated At</h5>
+        <p th:text="${post.body}">body text</p> <!--post body text-->
+    </div>
+    <ul sec:authorize="isAuthenticated()">  <!--has to do with editing or deleting the blog posts-->
+        <li><a th:href="@{'/posts/' + ${post.id} + '/edit'}">Edit</a></li>
+        <li><a th:href="@{'/posts/' + ${post.id} + '/delete'}">Delete</a></li>
+    </ul>
+</div>
+
+</body>
+</html>
