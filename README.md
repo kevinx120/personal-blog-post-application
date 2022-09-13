@@ -24,6 +24,7 @@
   <li>This project was made using my personal details but can be worked around to be your own Blog Application</li>
   <li>This project was made simple to login as a default USER and ADMIN but can be made differntly to your liking</li>
   <li>Go to http://localhost:3000 in the project and get ready to Blog!</li>
+  <li>Their is alot of room for improvemnt where more CSS and Javascript can be added in the static folder to give it more of a clean look and functionality</li>
   </ul>
   
 # Account Authorization and Restrictions
